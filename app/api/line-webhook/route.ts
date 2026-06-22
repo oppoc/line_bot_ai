@@ -40,6 +40,10 @@ async function handleEvent(event: webhook.Event): Promise<void> {
 
   try {
     const faq = await getFaq();
+    console.log("[line-webhook] faq loaded", {
+      count: faq.length,
+      sample: faq[0],
+    });
     const result = await withTimeout(
       askGemini(faq, userMessage),
       GEMINI_TIMEOUT_MS,
