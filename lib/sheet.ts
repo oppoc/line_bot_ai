@@ -86,7 +86,17 @@ export async function getFaq(): Promise<FaqRow[]> {
     }
 
     const csv = await res.text();
-    const data = rowsToFaq(parseCsv(csv));
+    const rows = parseCsv(csv);
+    const data = rowsToFaq(rows);
+    console.log("[sheet] fetched", {
+      status: res.status,
+      url: sheetUrl,
+      csvLength: csv.length,
+      csvHead: csv.slice(0, 80),
+      rowCount: rows.length,
+      header: rows[0],
+      faqCount: data.length,
+    });
     cache = { data, expiresAt: now + CACHE_TTL_MS };
     return data;
   } catch (err) {
