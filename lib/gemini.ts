@@ -2,9 +2,9 @@ import { GoogleGenAI } from "@google/genai";
 import { FaqRow, GeminiResult } from "@/types";
 import { faqToPromptString } from "@/lib/sheet";
 
-const MODEL = "gemini-3.5-flash";
-const TEMPERATURE = 1.0; // default — อย่าปรับลด, Gemini 3.x จะเพี้ยน
-const MAX_OUTPUT_TOKENS = 2048; // Gemini 3.x นับ thinking + output รวมกัน
+const MODEL = "gemini-2.5-flash";
+const TEMPERATURE = 1.0;
+const MAX_OUTPUT_TOKENS = 2048; // นับ thinking + output รวมกัน
 const THINKING_BUDGET = 512; // จำกัด thinking ไม่ให้กิน token จนไม่เหลือพอตอบ (FAQ lookup ไม่ต้องคิดนาน)
 
 export const DEFAULT_REPLY =
