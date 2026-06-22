@@ -4,7 +4,8 @@ import { faqToPromptString } from "@/lib/sheet";
 
 const MODEL = "gemini-3.5-flash";
 const TEMPERATURE = 1.0; // default — อย่าปรับลด, Gemini 3.x จะเพี้ยน
-const MAX_OUTPUT_TOKENS = 1024; // Gemini 3.x นับ thinking + output รวมกัน
+const MAX_OUTPUT_TOKENS = 2048; // Gemini 3.x นับ thinking + output รวมกัน
+const THINKING_BUDGET = 512; // จำกัด thinking ไม่ให้กิน token จนไม่เหลือพอตอบ (FAQ lookup ไม่ต้องคิดนาน)
 
 export const DEFAULT_REPLY =
   "ขออภัยด้วยนะคะ คำถามนี้ดิฉันไม่มีข้อมูลที่แน่ชัดอยู่ในระบบค่ะ เพื่อความถูกต้องและไม่ให้ข้อมูลผิดพลาด รบกวนติดต่อไพลินโดยตรงที่เบอร์ 098-889-5155 นะคะ ทางทีมงานจะดูแลและให้ข้อมูลที่ถูกต้องกับคุณค่ะ";
@@ -65,6 +66,9 @@ export async function askGemini(
     config: {
       temperature: TEMPERATURE,
       maxOutputTokens: MAX_OUTPUT_TOKENS,
+      thinkingConfig: {
+        thinkingBudget: THINKING_BUDGET,
+      },
     },
   });
 
